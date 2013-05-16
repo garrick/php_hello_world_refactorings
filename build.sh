@@ -1,4 +1,5 @@
 #/bin/bash
+clear
 if [ "$1" == "coverage" ]; then
    EXTRA="--coverage-html target";
 fi
