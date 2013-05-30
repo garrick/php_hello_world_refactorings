@@ -1,16 +1,15 @@
 <?php
   class Hello {
+
+    private $localizer;
+
     function sayHello($name) {
-      if ( $name == null ) 
-      {
-      return "Hello... stranger.";
-      }
-      return "Hello, {$name}!";
-    printf("This code is dead");
+      $greeting = $this->localizer->getGreeting(null);
+      return $greeting . ($name == null ? "... stranger." : ", {$name}!");
     }
 
-    function sayNothing() {
-      return "...";
+    function setLocalizer($localizer) {
+      $this->localizer = $localizer;
     }
   }
 ?>

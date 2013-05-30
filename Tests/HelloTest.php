@@ -1,27 +1,36 @@
 <?php
 require_once('Object/Hello.php');
+require_once('Object/Localizer.php');
+
 
 class StackTest extends PHPUnit_Framework_TestCase
 {
+  
+  private $unit;
+
+  public function setUp() {
+    //Arrange -- set up a unit to test
+    $this->unit = new Hello();
+    $stub = $this->getMock('Localizer');
+    $stub->expects($this->any())->method('getGreeting')->will($this->returnValue('Hiya'));
+
+    $this->unit->setLocalizer($stub);
+  }
 
   public function testSayHello()
   {
-    //Arrange -- set up a unit to test
-    $unit = new Hello();
     //Act -- do something interesting
-    $result = $unit->sayHello('mama');
+    $result = $this->unit->sayHello('mama');
     //Assert -- make an assertion about what should happen
-    $this->assertEquals('Hello, mama!', $result);
+    $this->assertEquals('Hiya, mama!', $result);
   }
 
   public function testSayHelloWithNullName()
   {
-    //Arrange -- set up a unit to test
-    $unit = new Hello();
     //Act -- do something interesting
-    $result = $unit->sayHello(null);
+    $result = $this->unit->sayHello(null);
     //Assert -- make an assertion about what should happen
-    $this->assertEquals('Hello... stranger.', $result);
+    $this->assertEquals('Hiya... stranger.', $result);
   }
 }
 
